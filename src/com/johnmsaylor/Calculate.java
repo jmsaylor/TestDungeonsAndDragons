@@ -19,13 +19,16 @@ public class Calculate {
         var startDice = new Dice(1,20);
         startDice.roll();
 
-        int startValue = startDice.getDiceValues().get(0) + attackModifier;
+        int startValue = startDice.getDiceValues().get(0);
 
         if(startValue == 1) {
             Console.out("Critical Miss - 0 damage dealt");
         }
 
-        if (startValue > ac + defenseMod) {
+        if (startValue + attackModifier > ac + defenseMod) {
+            if (damageDice.length() < 1) {
+                damageDice = Console.enterDamageDice();
+            }
             int[] damageDiceParams = parseDamageDice(damageDice);
             var dice = new Dice(damageDiceParams[0], damageDiceParams[1]);
             dice.roll();
